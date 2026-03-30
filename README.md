@@ -1,2 +1,2 @@
-# ecommerce_analysis
-Power BI Project
+# Ecommerce_analysis
+This project focuses on analysing
