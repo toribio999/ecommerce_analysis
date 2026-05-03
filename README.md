@@ -34,9 +34,14 @@ ecommerce-sales-analysis/
 
 ### 1. Home — Overview
 
-Vista general del negocio. Incluye los cuatro KPIs principales (Sales, Profit Margin, Profit, Quantity), evolución mensual de ventas y profit, crecimiento mes a mes (MoM%) y distribución de ventas por categoría de producto.
+Este dashboard corresponde a la página principal (1/3) del análisis de ecommerce y ofrece una visión general del rendimiento del negocio. Aquí se resumen los principales indicadores del trimestre actual, incluyendo ventas totales, beneficios, margen de beneficio medio y crecimiento mes a mes (MoM), permitiendo evaluar rápidamente la salud financiera. Además, se presentan tendencias mensuales de ventas y ganancias para identificar patrones y estacionalidad, junto con un desglose por categorías de producto que muestra tanto la contribución a las ventas como la rentabilidad de cada segmento. Los filtros superiores permiten segmentar el análisis por prioridad de orden, tipo de dispositivo, método de pago y trimestre, facilitando una exploración dinámica de los datos.
+
 
 ![Nombre](./images/home.png) 
+
+
+
+
 
 **💡 Insights principales**
 
@@ -44,15 +49,22 @@ Vista general del negocio. Incluye los cuatro KPIs principales (Sales, Profit Ma
 - **El margen global del 46,22%** es sólido, aunque Electronics muestra el profit más bajo de las cuatro categorías, lo que sugiere mayor coste o menor precio medio de venta.
 - **La tendencia mensual de ventas** presenta picos en mayo y diciembre, indicando estacionalidad marcada que puede aprovecharse para campañas promocionales.
 - **Home & Furniture** representa el segundo bloque de ventas (25,29%), con un profit relevante, lo que la convierte en una categoría estratégica de crecimiento.
-- **El crecimiento MoM (promedio 8,1%)** muestra alta variabilidad entre meses, con caídas en algunos períodos que merecen análisis de causa (stock, competencia, estacionalidad).
+- **El crecimiento MoM (promedio 10,89%)** muestra una tendencia general positiva, cerrando en torno al 10,89%, lo que confirma crecimiento sostenido; sin embargo, no es lineal. Hay picos fuertes (abril–mayo) seguidos de caídas marcadas (junio y agosto), lo que indica volatilidad mes a mes. Esto sugiere que el crecimiento está impulsado por eventos puntuales (promociones, campañas o estacionalidad) más que por una demanda completamente estable. 
 
 
-### 2. Gender Disclosure
-Segmentación de ventas y comportamiento de compra por género del cliente. Permite identificar patrones de consumo diferenciados y orientar estrategias de marketing.
+**Comentarios Relevantes**
+
+En general, se observa un crecimiento sólido y consistente tanto en ventas como en beneficios, con un incremento MoM positivo y márgenes saludables (~46%), lo que indica una operación rentable y bien controlada. Sin embargo, no todas las categorías aportan igual: Fashion lidera claramente en volumen de ventas, mientras que otras categorías mantienen márgenes similares pero menor peso, lo que abre una oportunidad para optimizar mix de producto o empujar categorías subexplotadas. A nivel temporal, hay cierta estacionalidad con picos hacia mitad y final de año, lo que sugiere que campañas o demanda estacional están influyendo significativamente. En conjunto, el negocio crece, pero el siguiente paso lógico no es solo vender más, sino diversificar ingresos y mejorar el rendimiento de categorías con menor contribución sin sacrificar margen.
+
+El MoM muestra una tendencia general positiva, cerrando en torno al 10,89%, lo que confirma crecimiento sostenido; sin embargo, no es lineal. Hay picos fuertes (abril–mayo) seguidos de caídas marcadas (junio y agosto), lo que indica volatilidad mes a mes. Esto sugiere que el crecimiento está impulsado por eventos puntuales (promociones, campañas o estacionalidad) más que por una demanda completamente estable. 
+
+
+### 2. Análisis de clientes
+Segmentación de ventas y comportamiento de compra del cliente.... Permite identificar patrones de consumo diferenciados y orientar estrategias de marketing.
 
 
 
-### 3. Profit Analysis
+### 3. Análisis en profundidad del beneficio
 Análisis en profundidad del margen de beneficio desglosado por categoría, segmento y período. Identifica las líneas de producto más y menos rentables.
 
 
