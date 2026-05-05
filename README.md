@@ -59,9 +59,82 @@ En general, se observa un crecimiento sólido y consistente tanto en ventas como
 El MoM muestra una tendencia general positiva, cerrando en torno al 10,89%, lo que confirma crecimiento sostenido; sin embargo, no es lineal. Hay picos fuertes (abril–mayo) seguidos de caídas marcadas (junio y agosto), lo que indica volatilidad mes a mes. Esto sugiere que el crecimiento está impulsado por eventos puntuales (promociones, campañas o estacionalidad) más que por una demanda completamente estable. 
 
 
-### 2. Análisis de clientes
-Segmentación de ventas y comportamiento de compra del cliente.... Permite identificar patrones de consumo diferenciados y orientar estrategias de marketing.
+### 👥 2. Análisis de clientes
 
+Este segundo dashboard del proyecto **Ecommerce Sales Analysis** profundiza en el 
+perfil y comportamiento de los clientes de la plataforma. Complementando el análisis 
+general de ventas del primer dashboard, aquí el foco se desplaza hacia quién compra, 
+cómo compra y con qué frecuencia, permitiendo identificar segmentos clave y patrones 
+de fidelización. El dashboard incluye filtros interactivos por prioridad de orden, 
+tipo de dispositivo, método de pago y trimestre.
+
+---
+
+### 📌 KPIs Principales
+
+| Métrica | Valor |
+|---|---|
+| Clientes Únicos | 39.000 |
+| Avg. Order Value | $2.000 |
+| Pedidos por Cliente | 1,32 |
+| Repeat Rate | 26,07% |
+
+---
+
+### 📊 Resultados e Insights
+
+**Distribución por género**
+
+Las mujeres representan el **55,15%** de las ventas totales (43 millones) frente al 
+**44,85%** de los hombres (35 millones). Esta diferencia es consistente a lo largo de 
+todas las visualizaciones del dashboard, siendo el segmento femenino el dominante 
+tanto en volumen de ventas como en número de clientes únicos mes a mes.
+
+**Canal de acceso: Web vs. Mobile**
+
+El canal **Web** concentra la gran mayoría del volumen de ventas en ambos géneros, 
+superando ampliamente a Mobile. Esto indica que, pese al auge del comercio móvil, 
+los clientes de esta plataforma siguen prefiriendo o completando sus compras 
+principalmente desde escritorio, lo que puede ser una señal tanto de perfil 
+demográfico como de oportunidad de mejora en la experiencia mobile.
+
+**Tipo de login y valor generado**
+
+Los usuarios de tipo **Member** son con diferencia los que mayor beneficio generan, 
+muy por encima de Guest, First SignUp y New. Esto pone de manifiesto que la 
+membresía actúa como un acelerador de valor: los clientes registrados y fidelizados 
+no solo compran más, sino que lo hacen con tickets más altos. Incentivar la conversión 
+de Guest a Member se presenta como una palanca estratégica clara.
+
+**Fidelización y frecuencia**
+
+Con una tasa de repetición del **26,07%** y una media de **1,32 pedidos por cliente**, 
+existe un margen amplio de mejora en retención. Uno de cada cuatro clientes repite 
+compra, lo cual es un punto de partida razonable, pero sugiere que las estrategias 
+de reactivación y fidelización (email marketing, programas de puntos, ofertas 
+personalizadas) podrían tener un impacto significativo.
+
+**Evolución mensual de clientes únicos**
+
+La base de clientes se mantiene estable entre enero y abril, con una aceleración 
+notable a partir de **mayo**. Los picos más altos se registran en **noviembre y 
+diciembre**, alineados con campañas estacionales como Black Friday y la temporada 
+navideña. Esta estacionalidad marcada sugiere la importancia de planificar con 
+antelación la capacidad y las acciones de captación en el último trimestre del año.
+
+**Método de pago**
+
+La **tarjeta de crédito** domina claramente el volumen de transacciones, seguida del 
+**money order** y, en menor medida, el **e-wallet** y otros métodos. El patrón es 
+similar entre géneros, sin diferencias relevantes en las preferencias de pago.
+
+**Top Clientes**
+
+Los clientes de mayor valor individual acumulan ventas de entre **8.940 y 9.940**, 
+con beneficios que oscilan entre **4.432 y 5.469** por cliente. El total acumulado 
+del top 10 asciende a **92.500 en ventas y 49.561 en beneficio**, lo que refleja 
+una rentabilidad sólida en el segmento premium y abre la puerta a estrategias 
+de atención personalizada o programas VIP.
 
 
 ### 3. Análisis en profundidad del beneficio
