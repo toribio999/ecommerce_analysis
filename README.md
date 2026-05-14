@@ -37,7 +37,7 @@ ecommerce-sales-analysis/
 Este dashboard corresponde a la página principal (1/3) del análisis de ecommerce y ofrece una visión general del rendimiento del negocio. Aquí se resumen los principales indicadores del trimestre actual, incluyendo ventas totales, beneficios, margen de beneficio medio y crecimiento mes a mes (MoM), permitiendo evaluar rápidamente la salud financiera. Además, se presentan tendencias mensuales de ventas y ganancias para identificar patrones y estacionalidad, junto con un desglose por categorías de producto que muestra tanto la contribución a las ventas como la rentabilidad de cada segmento. Los filtros superiores permiten segmentar el análisis por prioridad de orden, tipo de dispositivo, método de pago y trimestre, facilitando una exploración dinámica de los datos.
 
 
-![Nombre](./images/home.png) 
+![Nombre](./images/home_over.png) 
 
 
 
