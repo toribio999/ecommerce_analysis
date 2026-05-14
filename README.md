@@ -68,6 +68,9 @@ cómo compra y con qué frecuencia, permitiendo identificar segmentos clave y pa
 de fidelización. El dashboard incluye filtros interactivos por prioridad de orden, 
 tipo de dispositivo, método de pago y trimestre.
 
+
+![Nombre](./images/client_analysis.png) 
+
 ---
 
 ### 📌 KPIs Principales
@@ -140,6 +143,9 @@ de atención personalizada o programas VIP.
 ## 📊 Dashboard 3/3 — Profit Analysis
 
 El tercer y último panel del análisis se centra en la **rentabilidad del negocio**. 
+
+![Nombre](./images/profit_analysis.png) 
+
 El catálogo activo comprende **42 productos únicos**, con un descuento medio aplicado 
 del **3,04 %** y un beneficio medio por pedido (**Profit AOV**) de **$926**,
 lo que refleja un ticket elevado y márgenes saludables.
