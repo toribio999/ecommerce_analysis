@@ -32,7 +32,7 @@ ecommerce-sales-analysis/
 
 ## 📄 Páginas del informe
 
-### 1. Home — Overview
+###  🏠 Dashboard 1/3 — Home Overview
 
 Este dashboard corresponde a la página principal (1/3) del análisis de ecommerce y ofrece una visión general del rendimiento del negocio. Aquí se resumen los principales indicadores del trimestre actual, incluyendo ventas totales, beneficios, margen de beneficio medio y crecimiento mes a mes (MoM), permitiendo evaluar rápidamente la salud financiera. Además, se presentan tendencias mensuales de ventas y ganancias para identificar patrones y estacionalidad, junto con un desglose por categorías de producto que muestra tanto la contribución a las ventas como la rentabilidad de cada segmento. Los filtros superiores permiten segmentar el análisis por prioridad de orden, tipo de dispositivo, método de pago y trimestre, facilitando una exploración dinámica de los datos.
 
@@ -59,7 +59,7 @@ En general, se observa un crecimiento sólido y consistente tanto en ventas como
 El MoM muestra una tendencia general positiva, cerrando en torno al 10,89%, lo que confirma crecimiento sostenido; sin embargo, no es lineal. Hay picos fuertes (abril–mayo) seguidos de caídas marcadas (junio y agosto), lo que indica volatilidad mes a mes. Esto sugiere que el crecimiento está impulsado por eventos puntuales (promociones, campañas o estacionalidad) más que por una demanda completamente estable. 
 
 
-### 👥 2. Análisis de clientes
+### 👥  Dashboard 2/3 — Análisis de clientes
 
 Este segundo dashboard del proyecto **Ecommerce Sales Analysis** profundiza en el 
 perfil y comportamiento de los clientes de la plataforma. Complementando el análisis 
@@ -137,11 +137,32 @@ una rentabilidad sólida en el segmento premium y abre la puerta a estrategias
 de atención personalizada o programas VIP.
 
 
-### 3. Análisis en profundidad del beneficio
-Análisis en profundidad del margen de beneficio desglosado por categoría, segmento y período. Identifica las líneas de producto más y menos rentables.
+## 📊 Dashboard 3/3 — Profit Analysis
 
+El tercer y último panel del análisis se centra en la **rentabilidad del negocio**. 
+El catálogo activo comprende **42 productos únicos**, con un descuento medio aplicado 
+del **3,04 %** y un beneficio medio por pedido (**Profit AOV**) de **$926**,
+lo que refleja un ticket elevado y márgenes saludables.
 
+El gráfico en cascada (waterfall) muestra cómo se construye el beneficio total (~$38 M)
+por categoría: **Fashion** aporta la base más sólida (~$20 M), seguida de
+**Home & Furniture** y **Auto & Accessories**, mientras que **Electronics**, pese a ser
+la categoría con mayor volumen de ventas, añade el incremento final. El análisis 
+trimestral por categoría revela una **notable estabilidad** a lo largo del año,
+con márgenes que oscilan entre el 40 % y el 45 % en todos los segmentos y trimestres,
+sin picos ni caídas significativas — señal de una política de precios y descuentos
+bien calibrada.
 
+El scatter plot de descuento vs. beneficio pone de manifiesto una ligera tensión:
+**Electronics y Fashion** operan con descuentos más altos (3–4 %) pero logran
+mantener márgenes superiores al 43 %, sugiriendo que el volumen compensa el descuento.
+**Electronics** destaca especialmente por su gran volumen de ventas relativo (burbuja mayor).
+
+Finalmente, el ranking de los **Top 10 productos más rentables** está liderado por
+**Apple Laptop**, **T-Shirts** y **Tyre**, que combinan un alto beneficio porcentual
+con descuentos controlados. Productos como **Titak Watch** y **Car Pillow & Neck Rest**
+presentan descuentos proporcionalmente más elevados, lo que podría revisarse para
+optimizar el margen neto sin sacrificar demanda.
 
 
 ## 🎛️ Filtros disponibles
