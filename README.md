@@ -30,6 +30,72 @@ ecommerce-sales-analysis/
 
 ```
 
+## 🗃️ Database Schema
+
+### Table: `ecomm_sales`
+
+| Column | Type | Description |
+|---|---|---|
+| `Order_Date` | DATE | Date the order was placed |
+| `Time` | TEXT | Time of the order |
+| `Aging` | DOUBLE | Days since the order was placed |
+| `Customer_Id` | INT | Unique customer identifier |
+| `Gender` | TEXT | Customer gender |
+| `Device_Type` | TEXT | Device used to place the order *(mobile, desktop…)* |
+| `Customer_Login_type` | TEXT | Login method or account type |
+| `Product_Category` | TEXT | High-level product category |
+| `Product` | TEXT | Product name |
+| `Sales` | DOUBLE | Total sale amount |
+| `Quantity` | DOUBLE | Units ordered |
+| `Discount` | DOUBLE | Discount applied |
+| `Profit` | DOUBLE | Net profit on the order |
+| `Shipping_Cost` | DOUBLE | Shipping cost |
+| `Order_Priority` | TEXT | Priority level *(Low, Medium, High, Critical)* |
+| `Payment_method` | TEXT | Payment method used |
+
+> **Single table, no joins required.** All analysis is performed directly on `ecomm_sales`.
+
+
+
+## 🔗 SQL Queries
+
+### Month-over-month sales & profit growth
+
+Calculates the absolute and percentage change in sales and profit between consecutive months, enabling trend and seasonality analysis.
+
+```sql
+WITH monthly AS (
+    SELECT
+        DATE_FORMAT(Order_Date, '%Y-%m')  AS month,
+        ROUND(SUM(Sales), 2)              AS total_sales,
+        ROUND(SUM(Profit), 2)             AS total_profit
+    FROM ecomm_sales
+    GROUP BY month
+)
+SELECT
+    month,
+    total_sales,
+    ROUND(total_sales - LAG(total_sales) OVER (ORDER BY month), 2)        AS sales_diff,
+    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY month))
+        / LAG(total_sales) OVER (ORDER BY month) * 100, 2)                AS sales_mom_pct,
+    total_profit,
+    ROUND(total_profit - LAG(total_profit) OVER (ORDER BY month), 2)      AS profit_diff,
+    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY month))
+        / LAG(total_profit) OVER (ORDER BY month) * 100, 2)               AS profit_mom_pct
+FROM monthly
+ORDER BY month;
+```
+
+> Used in: **Dashboard 1 — Home Overview** · Monthly Sales & Profit Trend
+
+
+
+
+
+
+
+
+
 ## 📄 Report Pages
 
 ### 🏠 Dashboard 1/3 — Home Overview
