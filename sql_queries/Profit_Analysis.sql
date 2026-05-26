@@ -1,6 +1,3 @@
-use ecomm;
-
-
 -- Basic KPIs
 
 SELECT 
