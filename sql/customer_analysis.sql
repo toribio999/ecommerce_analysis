@@ -15,7 +15,6 @@ SELECT
 FROM ecomm_sales
 GROUP BY Customer_Login_type, gender;
 
-
 -- Sales and Profit by Payment Method
 SELECT 
     Payment_method,
