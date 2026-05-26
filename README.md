@@ -21,13 +21,17 @@ ecommerce-sales-analysis/
 │   └── ecommerce_sales.pbix
 ├── data/
 │   └── dataset.csv
+├── sql/
+│   ├── home_dashboard.sql
+│   ├── customer_analysis.sql
+│   ├── customer_segmentation.sql
+│   └── profit_analysis.sql
 ├── images/
 │   ├── home.png
 │   ├── gender_disclosure.png
 │   ├── profit_analysis.png
 │   └── extra.png
 └── README.md
-
 ```
 
 ## 🗃️ Database Schema
