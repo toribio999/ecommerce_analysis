@@ -1,6 +1,5 @@
--- Customer Segment Revenue Analysis --
-
 -- Customer Value Segmentation
+
 WITH customer_sales AS (
     SELECT 
         customer_id,
