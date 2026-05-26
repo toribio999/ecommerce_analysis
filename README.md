@@ -56,44 +56,13 @@ ecommerce-sales-analysis/
 > **Single table, no joins required.** All analysis is performed directly on `ecomm_sales`.
 
 
+## 🎛️ Available Filters
 
-## 🔗 SQL Queries
+All dashboards support cross-filtering via the following global slicers:
 
-### Month-over-month sales & profit growth
+`Order Priority` · `Device Type` · `Payment Method` · `Quarter` · `Product Category` · `MonthName`
 
-Calculates the absolute and percentage change in sales and profit between consecutive months, enabling trend and seasonality analysis.
-
-```sql
-WITH monthly AS (
-    SELECT
-        DATE_FORMAT(Order_Date, '%Y-%m')  AS month,
-        ROUND(SUM(Sales), 2)              AS total_sales,
-        ROUND(SUM(Profit), 2)             AS total_profit
-    FROM ecomm_sales
-    GROUP BY month
-)
-SELECT
-    month,
-    total_sales,
-    ROUND(total_sales - LAG(total_sales) OVER (ORDER BY month), 2)        AS sales_diff,
-    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY month))
-        / LAG(total_sales) OVER (ORDER BY month) * 100, 2)                AS sales_mom_pct,
-    total_profit,
-    ROUND(total_profit - LAG(total_profit) OVER (ORDER BY month), 2)      AS profit_diff,
-    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY month))
-        / LAG(total_profit) OVER (ORDER BY month) * 100, 2)               AS profit_mom_pct
-FROM monthly
-ORDER BY month;
-```
-
-> Used in: **Dashboard 1 — Home Overview** · Monthly Sales & Profit Trend
-
-
-
-
-
-
-
+---
 
 
 ## 📄 Report Pages
@@ -120,6 +89,71 @@ This dashboard corresponds to the main page (1/3) of the ecommerce analysis and 
 Overall, solid and consistent growth is observed in both sales and profits, with positive MoM growth and healthy margins (~46%), indicating a profitable and well-controlled operation. However, not all categories contribute equally: Fashion clearly leads in sales volume, while other categories maintain similar margins but a lower share, which opens an opportunity to optimise the product mix or push underexploited categories. From a time perspective, there is some seasonality with peaks towards the middle and end of the year, suggesting that campaigns or seasonal demand are having a significant influence. Overall, the business is growing, but the logical next step is not simply to sell more, but to diversify revenue and improve the performance of lower-contributing categories without sacrificing margin.
 
 MoM shows a generally positive trend, closing at around 10.89%, confirming sustained growth; however, it is not linear. There are strong peaks (April–May) followed by sharp drops (June and August), indicating month-on-month volatility. This suggests that growth is driven by one-off events (promotions, campaigns or seasonality) rather than completely stable demand.
+
+### 🔗 Relevant SQL Queries
+
+#### Month-over-month sales & profit growth
+
+Calculates the absolute and percentage change in sales and profit between consecutive months, enabling trend and seasonality analysis.
+
+```sql
+WITH monthly AS (
+    SELECT
+        DATE_FORMAT(Order_Date, '%Y-%m')  AS month,
+        ROUND(SUM(Sales), 2)              AS total_sales,
+        ROUND(SUM(Profit), 2)             AS total_profit
+    FROM ecomm_sales
+    GROUP BY month
+)
+SELECT
+    month,
+    total_sales,
+    ROUND(total_sales - LAG(total_sales) OVER (ORDER BY month), 2)        AS sales_diff,
+    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY month))
+        / LAG(total_sales) OVER (ORDER BY month) * 100, 2)                AS sales_mom_pct,
+    total_profit,
+    ROUND(total_profit - LAG(total_profit) OVER (ORDER BY month), 2)      AS profit_diff,
+    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY month))
+        / LAG(total_profit) OVER (ORDER BY month) * 100, 2)               AS profit_mom_pct
+FROM monthly
+ORDER BY month;
+```
+
+#### Quarter-over-Quarter Performance
+
+```sql
+WITH monthly AS (
+    SELECT
+        DATE_FORMAT(Order_Date, '%Y-%m') AS month,
+        ROUND(SUM(Sales), 2)             AS total_sales,
+        ROUND(SUM(Profit), 2)            AS total_profit
+    FROM ecomm_sales
+    GROUP BY month
+)
+SELECT
+    month,
+    total_sales,
+    ROUND(total_sales - LAG(total_sales) OVER (ORDER BY month), 2)                           AS sales_diff,
+    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY month))
+        / LAG(total_sales) OVER (ORDER BY month) * 100, 2)                                   AS sales_mom_pct,
+    total_profit,
+    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY month))
+        / LAG(total_profit) OVER (ORDER BY month) * 100, 2)                                  AS profit_mom_pct
+FROM monthly
+ORDER BY month;
+```
+
+#### Average Profit Margin by Category
+
+```sql
+SELECT
+    Product_Category,
+    ROUND(SUM(Sales), 2)                                    AS total_sales,
+    ROUND(SUM(Profit) / NULLIF(SUM(Sales), 0) * 100, 2)    AS avg_profit_margin_pct
+FROM ecomm_sales
+GROUP BY Product_Category
+ORDER BY avg_profit_margin_pct DESC;
+```
 
 
 ### 👥 Dashboard 2/3 — Customer Analysis
@@ -173,7 +207,68 @@ The customer base remains stable between January and April, with a notable accel
 The highest-value individual customers accumulate sales of between **$8,940 and $9,940**, with profits ranging from **$4,432 to $5,469** per customer. The cumulative total of the top 10 amounts to **$92,500 in sales and $49,561 in profit**, reflecting solid profitability in the premium segment and opening the door to personalised service strategies or VIP programmes.
 
 
-## 📊 Dashboard 3/3 — Profit Analysis
+### 🔗 Relevant SQL Queries
+
+
+
+#### New Clients and Tendencies per month
+
+```sql
+SELECT
+    DATE_FORMAT(first_purchase, '%Y-%m') AS month,
+    COUNT(*)                             AS new_customers
+FROM (
+    SELECT
+        customer_id,
+        MIN(order_date) AS first_purchase
+    FROM ecomm_sales
+    GROUP BY customer_id
+) t
+GROUP BY month
+ORDER BY month; 
+```
+
+
+#### Top Clients
+
+```sql
+SELECT 
+    customer_id,
+    SUM(sales) AS total_sales,
+    RANK() OVER (ORDER BY SUM(sales) DESC) AS rank_sales
+FROM ecomm_sales
+GROUP BY customer_id
+LIMIT 10;
+```
+
+#### Repeat Rate
+
+```sql
+SELECT
+    ROUND(
+        SUM(CASE WHEN total_orders > 1 THEN 1 ELSE 0 END) * 100.0
+        / COUNT(*),
+        2
+    ) AS repeat_customer_rate_pct
+FROM (
+    SELECT
+        customer_id,
+        COUNT(*) AS total_orders
+    FROM ecomm_sales
+    GROUP BY customer_id
+) t;
+```
+
+
+
+
+
+## 📊 Dashboard 3/4 — Fidelity Analysis
+
+
+
+
+## 📊 Dashboard 4/4 — Profit Analysis
 
 The third and final panel of the analysis focuses on **business profitability**.
 
@@ -188,10 +283,39 @@ The discount vs. profit scatter plot reveals a slight tension: **Electronics and
 Finally, the **Top 10 most profitable products** ranking is led by **Apple Laptop**, **T-Shirts** and **Tyre**, which combine high percentage profit with controlled discounts. Products such as **Titak Watch** and **Car Pillow & Neck Rest** carry proportionally higher discounts, which could be reviewed to optimise net margin without sacrificing demand.
 
 
-## 🎛️ Available Filters
+### 🔗 Relevant SQL Queries
 
-All dashboards support cross-filtering via the following global slicers:
+#### Impact of the Discount Level
 
-`Order Priority` · `Device Type` · `Payment Method` · `Quarter` · `Product Category` · `MonthName`
 
----
+```sql
+SELECT 
+    CASE 
+        WHEN discount = 0 THEN 'No Discount'
+        WHEN discount <= 0.1 THEN 'Low Discount'
+        WHEN discount <= 0.3 THEN 'Medium Discount'
+        ELSE 'High Discount'
+    END AS discount_segment,
+    COUNT(*) AS orders,
+    SUM(profit) AS total_profit,
+    ROUND(AVG(profit), 2) AS avg_profit,
+    ROUND(SUM(profit) / SUM(sales) * 100, 2) AS margin_pct
+FROM ecomm_sales
+GROUP BY discount_segment
+ORDER BY total_profit DESC;
+```
+
+#### Top 10 Most profitable products and the associated discount level
+
+```sql
+SELECT 
+    product,
+    SUM(profit) AS total_profit,
+    ROUND(AVG(discount), 2) AS avg_discount
+FROM ecomm_sales
+GROUP BY product
+ORDER BY total_profit DESC
+LIMIT 10;
+```
+
+
