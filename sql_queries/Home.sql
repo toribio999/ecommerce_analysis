@@ -1,5 +1,3 @@
-use ecomm;
-
 -- MoM Sales & Profit
 
 WITH monthly AS (
