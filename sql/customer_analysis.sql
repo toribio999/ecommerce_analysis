@@ -1,5 +1,3 @@
-select * from ecomm_sales;
-
 -- Sales and Profit by Gender
 
 SELECT 
