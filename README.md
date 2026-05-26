@@ -9,6 +9,7 @@ Analytical dashboard developed in Power BI for a multi-channel e-commerce busine
 - **Power BI Desktop** — report development and visualisations
 - **DAX** — calculated measures (MoM%, Profit Margin, dynamic KPIs)
 - **Power Query (M)** — dataset transformation and cleaning
+- **SQL (MySQL)** — data extraction, aggregation, and business metric calculations
 - **Excel / CSV** — source data
 
 ---
@@ -22,7 +23,7 @@ ecommerce-sales-analysis/
 ├── data/
 │   └── dataset.csv
 ├── sql/
-│   ├── home_dashboard.sql
+│   ├── home.sql
 │   ├── customer_analysis.sql
 │   ├── customer_segmentation.sql
 │   └── profit_analysis.sql
