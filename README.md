@@ -159,7 +159,7 @@ FROM ecomm_sales
 GROUP BY Product_Category
 ORDER BY avg_profit_margin_pct DESC;
 ```
-
+> 💡 Full query source available in [home.sql](./sql/home.sql)
 
 ### 👥 Dashboard 2/3 — Customer Analysis
 
@@ -264,20 +264,108 @@ FROM (
 ) t;
 ```
 
+>💡 Full query source available in [customer_analysis.sql](./sql/customer_analysis.sql)
+
+
+
+## 📊 Dashboard 3/4 — Customer Segmentation
+
+This dashboard explores revenue distribution and purchasing behavior across four customer segments: **High Value**, **Medium Value**, **Low Value**, and **VIP**.
+
+
+
+---
+![Name](./images/client_analysis.png)
 
 
 
 
-## 📊 Dashboard 3/4 — Fidelity Analysis
+The top KPI cards surface the most critical metrics at a glance: VIP customers average $6.02M in revenue versus $2.74M for High Value, repeat customers account for 43.56% of total revenue, and VIP customers contribute 5.94% of overall sales. The Revenue Share donut chart reinforces the dominance of the High Value segment, which alone represents 66.4% of total revenue.
 
 
 
+
+
+
+
+
+
+### 🔗 Relevant SQL Queries
+
+**Customer Value Segmentation** — classifies each customer into a segment based on their total lifetime spend (VIP ≥ $5K, High Value ≥ $2K, Medium Value ≥ $1K, Low Value below that), then aggregates count, average revenue, average orders, and revenue share per segment.
+
+```sql
+WITH customer_sales AS (
+    SELECT 
+        customer_id,
+        SUM(sales)      AS total_sales,
+        COUNT(*)        AS total_orders,
+        MAX(order_date) AS last_purchase
+    FROM ecomm_sales
+    GROUP BY customer_id
+),
+segmented AS (
+    SELECT
+        customer_id,
+        total_sales,
+        total_orders,
+        last_purchase,
+        CASE
+            WHEN total_sales >= 5000 THEN 'VIP'
+            WHEN total_sales >= 2000 THEN 'High Value'
+            WHEN total_sales >= 1000 THEN 'Medium Value'
+            ELSE                          'Low Value'
+        END AS segment_name
+    FROM customer_sales
+)
+SELECT
+    segment_name,
+    COUNT(*)                        AS customers,
+    ROUND(AVG(total_sales), 2)      AS avg_revenue,
+    ROUND(AVG(total_orders), 1)     AS avg_orders,
+    ROUND(SUM(total_sales), 2)      AS segment_revenue,
+    ROUND(
+        SUM(total_sales) / SUM(SUM(total_sales)) OVER () * 100,
+    2)                              AS revenue_share_pct
+FROM segmented
+GROUP BY segment_name
+ORDER BY segment_revenue DESC;
+```
+
+
+
+**Customer Retention Analysis** — splits customers into One-time vs. Repeat based on order count, returning their distribution and average revenue to power the fidelity breakdowns across all charts.
+
+ ```sql
+SELECT
+    CASE 
+        WHEN total_orders = 1 THEN 'One-time'
+        ELSE 'Repeat'
+    END                         AS customer_type,
+    COUNT(*)                    AS customers,
+    ROUND(AVG(total_sales), 2)  AS avg_revenue,
+    ROUND(
+        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 
+    2)                          AS pct_of_customers
+FROM (
+    SELECT
+        customer_id,
+        COUNT(*)   AS total_orders,
+        SUM(sales) AS total_sales
+    FROM ecomm_sales
+    GROUP BY customer_id
+) t
+GROUP BY customer_type;
+ ```
+
+>💡 Full query source available in [customer_segmentation.sql](./sql/customer_segmentation.sql)
 
 ## 📊 Dashboard 4/4 — Profit Analysis
 
 The third and final panel of the analysis focuses on **business profitability**.
 
 ![Name](./images/profit_analysis.png)
+
 
 The active catalogue comprises **42 unique products**, with an average discount applied of **3.04%** and an average profit per order (**Profit AOV**) of **$926**, reflecting a high ticket value and healthy margins.
 
@@ -323,4 +411,4 @@ ORDER BY total_profit DESC
 LIMIT 10;
 ```
 
-
+>💡 Full query source available in [profit_analysis.sql](./sql/profit_analysis.sql)
