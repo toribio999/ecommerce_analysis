@@ -70,9 +70,7 @@ All dashboards support cross-filtering via the following global slicers:
 ---
 
 
-## 📄 Report Pages
-
-### 🏠 Dashboard 1/3 — Home Overview
+## 🏠 Dashboard 1/4 — Home Overview
 
 This dashboard corresponds to the main page (1/3) of the ecommerce analysis and provides a general overview of business performance. It summarises the key indicators for the current quarter, including total sales, profits, average profit margin and month-on-month growth (MoM), enabling a quick assessment of financial health. Monthly sales and profit trends are also presented to identify patterns and seasonality, alongside a breakdown by product category showing both the contribution to sales and the profitability of each segment. The top filters allow segmentation of the analysis by order priority, device type, payment method and quarter, enabling dynamic data exploration.
 
@@ -97,9 +95,7 @@ MoM shows a generally positive trend, closing at around 10.89%, confirming susta
 
 ### 🔗 Relevant SQL Queries
 
-#### Month-over-month sales & profit growth
-
-Calculates the absolute and percentage change in sales and profit between consecutive months, enabling trend and seasonality analysis.
+**Month-over-Month Sales & Profit** — uses a CTE to aggregate monthly totals, then applies `LAG()` window functions to compute absolute and percentage change in both sales and profit versus the prior month.
 
 ```sql
 WITH monthly AS (
@@ -124,44 +120,34 @@ FROM monthly
 ORDER BY month;
 ```
 
-#### Quarter-over-Quarter Performance
+**Quarter-over-Quarter Sales & Profit** — groups data by quarter, then computes margin, revenue share, and QoQ percentage change for both sales and profit using `LAG()` and `SUM() OVER ()`.
 
 ```sql
-WITH monthly AS (
+WITH quarterly AS (
     SELECT
-        DATE_FORMAT(Order_Date, '%Y-%m') AS month,
-        ROUND(SUM(Sales), 2)             AS total_sales,
-        ROUND(SUM(Profit), 2)            AS total_profit
+        CONCAT('Q', QUARTER(Order_Date)) AS quarter,
+        SUM(Sales)                        AS total_sales,
+        SUM(Profit)                       AS total_profit
     FROM ecomm_sales
-    GROUP BY month
+    GROUP BY quarter
 )
 SELECT
-    month,
-    total_sales,
-    ROUND(total_sales - LAG(total_sales) OVER (ORDER BY month), 2)                           AS sales_diff,
-    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY month))
-        / LAG(total_sales) OVER (ORDER BY month) * 100, 2)                                   AS sales_mom_pct,
-    total_profit,
-    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY month))
-        / LAG(total_profit) OVER (ORDER BY month) * 100, 2)                                  AS profit_mom_pct
-FROM monthly
-ORDER BY month;
+    quarter,
+    ROUND(total_sales, 2)                                                      AS total_sales,
+    ROUND(total_profit, 2)                                                      AS total_profit,
+    ROUND(total_profit / total_sales * 100, 2)                                 AS profit_margin_pct,
+    ROUND(total_sales / SUM(total_sales) OVER () * 100, 2)                     AS revenue_share_pct,
+    ROUND((total_sales - LAG(total_sales) OVER (ORDER BY quarter))
+        / LAG(total_sales) OVER (ORDER BY quarter) * 100, 2)                   AS sales_pct_change,
+    ROUND((total_profit - LAG(total_profit) OVER (ORDER BY quarter))
+        / LAG(total_profit) OVER (ORDER BY quarter) * 100, 2)                  AS profit_pct_change
+FROM quarterly
+ORDER BY quarter;
 ```
 
-#### Average Profit Margin by Category
-
-```sql
-SELECT
-    Product_Category,
-    ROUND(SUM(Sales), 2)                                    AS total_sales,
-    ROUND(SUM(Profit) / NULLIF(SUM(Sales), 0) * 100, 2)    AS avg_profit_margin_pct
-FROM ecomm_sales
-GROUP BY Product_Category
-ORDER BY avg_profit_margin_pct DESC;
-```
 > 💡 Full query source available in [home.sql](./sql/home.sql)
 
-### 👥 Dashboard 2/3 — Customer Analysis
+## 👥 Dashboard 2/4 — Customer Analysis
 
 This second dashboard of the **Ecommerce Sales Analysis** project provides an in-depth look at the profile and behaviour of the platform's customers. Complementing the general sales analysis from the first dashboard, the focus here shifts to who buys, how they buy and how frequently, enabling identification of key segments and loyalty patterns. The dashboard includes interactive filters by order priority, device type, payment method and quarter.
 
@@ -214,9 +200,7 @@ The highest-value individual customers accumulate sales of between **$8,940 and 
 
 ### 🔗 Relevant SQL Queries
 
-
-
-#### New Clients and Tendencies per month
+**New Customers per Month** — identifies each customer's first purchase date and groups by month to build the acquisition trend line.
 
 ```sql
 SELECT
@@ -230,23 +214,10 @@ FROM (
     GROUP BY customer_id
 ) t
 GROUP BY month
-ORDER BY month; 
+ORDER BY month;
 ```
 
-
-#### Top Clients
-
-```sql
-SELECT 
-    customer_id,
-    SUM(sales) AS total_sales,
-    RANK() OVER (ORDER BY SUM(sales) DESC) AS rank_sales
-FROM ecomm_sales
-GROUP BY customer_id
-LIMIT 10;
-```
-
-#### Repeat Rate
+**Repeat Customer Rate** — calculates the percentage of customers with more than one order, feeding the retention KPI card.
 
 ```sql
 SELECT
@@ -281,11 +252,6 @@ This dashboard explores revenue distribution and purchasing behavior across four
 
 
 The top KPI cards surface the most critical metrics at a glance: VIP customers average $6.02M in revenue versus $2.74M for High Value, repeat customers account for 43.56% of total revenue, and VIP customers contribute 5.94% of overall sales. The Revenue Share donut chart reinforces the dominance of the High Value segment, which alone represents 66.4% of total revenue.
-
-
-
-
-
 
 
 
@@ -378,32 +344,45 @@ Finally, the **Top 10 most profitable products** ranking is led by **Apple Lapto
 
 ### 🔗 Relevant SQL Queries
 
-#### Impact of the Discount Level
+**Product Category Analysis** — breaks down sales, profit, margin, and average discount by category, ordered by total profit to surface the most valuable segments.
 
+```sql
+SELECT 
+    product_category,
+    SUM(sales)                                AS total_sales,
+    SUM(profit)                               AS total_profit,
+    ROUND(SUM(profit) / SUM(sales) * 100, 2) AS margin_pct,
+    AVG(discount)                             AS avg_discount
+FROM ecomm_sales
+GROUP BY product_category
+ORDER BY total_profit DESC;
+```
+
+**Impact of Discount Level** — buckets orders into four discount tiers (None, Low, Medium, High) and measures the effect on order count, total profit, average profit, and margin per tier.
 
 ```sql
 SELECT 
     CASE 
-        WHEN discount = 0 THEN 'No Discount'
-        WHEN discount <= 0.1 THEN 'Low Discount'
-        WHEN discount <= 0.3 THEN 'Medium Discount'
-        ELSE 'High Discount'
-    END AS discount_segment,
-    COUNT(*) AS orders,
-    SUM(profit) AS total_profit,
-    ROUND(AVG(profit), 2) AS avg_profit,
+        WHEN discount = 0     THEN 'No Discount'
+        WHEN discount <= 0.1  THEN 'Low Discount'
+        WHEN discount <= 0.3  THEN 'Medium Discount'
+        ELSE                       'High Discount'
+    END                                       AS discount_segment,
+    COUNT(*)                                  AS orders,
+    SUM(profit)                               AS total_profit,
+    ROUND(AVG(profit), 2)                     AS avg_profit,
     ROUND(SUM(profit) / SUM(sales) * 100, 2) AS margin_pct
 FROM ecomm_sales
 GROUP BY discount_segment
 ORDER BY total_profit DESC;
 ```
 
-#### Top 10 Most profitable products and the associated discount level
+**Top 10 Most Profitable Products** — returns the ten highest-profit products alongside their average discount, making it easy to spot whether top earners rely on discounting or not.
 
 ```sql
 SELECT 
     product,
-    SUM(profit) AS total_profit,
+    SUM(profit)           AS total_profit,
     ROUND(AVG(discount), 2) AS avg_discount
 FROM ecomm_sales
 GROUP BY product
