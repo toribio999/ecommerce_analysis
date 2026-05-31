@@ -72,26 +72,49 @@ All dashboards support cross-filtering via the following global slicers:
 
 ## 🏠 Dashboard 1/4 — Home Overview
 
-This dashboard corresponds to the main page (1/3) of the ecommerce analysis and provides a general overview of business performance. It summarises the key indicators for the current quarter, including total sales, profits, average profit margin and month-on-month growth (MoM), enabling a quick assessment of financial health. Monthly sales and profit trends are also presented to identify patterns and seasonality, alongside a breakdown by product category showing both the contribution to sales and the profitability of each segment. The top filters allow segmentation of the analysis by order priority, device type, payment method and quarter, enabling dynamic data exploration.
-
+The **Home** dashboard serves as the executive summary of the ecommerce operation,
+providing a high-level view of sales and profitability trends. Q4 closed at **$23.88M in
+sales and $11.04M in profit**, representing a solid **~7.9% quarter-over-quarter growth**
+in both metrics. The business sustains a strong **average profit margin of 46.22%**, with
+consistent month-over-month growth averaging around **10.89% in sales and 10.90% in
+profit**
 
 ![Name](./images/home_dashboard.png)
 
 
-**💡 Key Insights**
+### 📌 Key KPIs — Home
+| Metric | Value |
+|---|---|
+| Sales Q4 | $23.88M |
+| Sales Q3 | $22.13M (+7.93%) |
+| Profit Q4 | $11.04M |
+| Profit Q3 | $10.23M (+7.9%) |
+| Average Profit Margin | 46.22% |
+| Sales MoM avg | 10.89% |
+| Profit MoM avg | 10.90% |
 
-- **Fashion dominates sales** with 55.62% of the total ($43M), being by far the most relevant category in both volume and profit generated.
-- **The overall margin of 46.22%** is solid, although Electronics shows the lowest profit of the four categories, suggesting higher costs or a lower average selling price.
-- **The monthly sales trend** shows peaks in May and December, indicating marked seasonality that can be leveraged for promotional campaigns.
-- **Home & Furniture** represents the second largest sales block (25.29%), with relevant profit, making it a strategic growth category.
-- **MoM growth (average 10.89%)** shows an overall positive trend, closing at around 10.89%, confirming sustained growth; however, it is not linear. There are strong peaks (April–May) followed by sharp drops (June and August), indicating month-on-month volatility. This suggests that growth is driven by one-off events (promotions, campaigns or seasonality) rather than completely stable demand.
+---
+
+### 📊 Results & Insights
 
 
-**Relevant Comments**
+- **Monthly Sales and Profit trend**: Both sales and profit show a **steady upward
+trajectory throughout the year**, with sales consistently above the average threshold
+(dotted line) from mid-year onward. The gap between sales and profit remains stable,
+indicating controlled cost structures.
+- **Month-over-Month Growth (%)**: MoM growth is **volatile but generally positive**,
+with a notable spike around **April–May** and some negative dips in February and
+December. This suggests sensitivity to seasonal campaigns or promotional cycles.
+- **Sales by Product Category (donut)**: **Fashion dominates with 55.62%** of total
+sales (~$43M), followed by Auto & Accessories (25.29%, ~$20M), Home & Furniture
+(14.04%, ~$11M), and Electronic (5.05%, ~$4M).
+- **Average Profit Margin by Category**: Despite Fashion leading in sales volume, **all
+four categories show remarkably similar profit margins (~40–46%)**, with Fashion and
+Home & Furniture slightly edging out the others. Electronics, though smallest in sales,
+holds competitive margins.
 
-Overall, solid and consistent growth is observed in both sales and profits, with positive MoM growth and healthy margins (~46%), indicating a profitable and well-controlled operation. However, not all categories contribute equally: Fashion clearly leads in sales volume, while other categories maintain similar margins but a lower share, which opens an opportunity to optimise the product mix or push underexploited categories. From a time perspective, there is some seasonality with peaks towards the middle and end of the year, suggesting that campaigns or seasonal demand are having a significant influence. Overall, the business is growing, but the logical next step is not simply to sell more, but to diversify revenue and improve the performance of lower-contributing categories without sacrificing margin.
 
-MoM shows a generally positive trend, closing at around 10.89%, confirming sustained growth; however, it is not linear. There are strong peaks (April–May) followed by sharp drops (June and August), indicating month-on-month volatility. This suggests that growth is driven by one-off events (promotions, campaigns or seasonality) rather than completely stable demand.
+
 
 ### 🔗 Relevant SQL Queries
 
@@ -147,6 +170,15 @@ ORDER BY quarter;
 
 > 💡 Full query source available in [home.sql](./sql/home.sql)
 
+### Conclusion
+
+The Home dashboard paints a picture of a **healthy, growing ecommerce business** with
+strong and consistent profit margins across all product categories. Fashion is the clear
+revenue engine, but the uniformity of margins across categories suggests a
+**well-balanced and efficiently managed product portfolio**. The MoM volatility warrants
+attention — smoothing out the dips in February and December through targeted promotions
+or inventory strategies could further solidify annual growth momentum.
+
 ## 👥 Dashboard 2/4 — Customer Analysis
 
 This second dashboard of the **Ecommerce Sales Analysis** project provides an in-depth look at the profile and behaviour of the platform's customers. Complementing the general sales analysis from the first dashboard, the focus here shifts to who buys, how they buy and how frequently, enabling identification of key segments and loyalty patterns. The dashboard includes interactive filters by order priority, device type, payment method and quarter.
@@ -169,34 +201,19 @@ This second dashboard of the **Ecommerce Sales Analysis** project provides an in
 
 ### 📊 Results & Insights
 
-**Gender Distribution**
-
-Women account for **55.15%** of total sales (43 million) compared to **44.85%** for men (35 million). This difference is consistent across all dashboard visualisations, with the female segment being dominant both in sales volume and in number of unique customers month on month.
-
-**Access Channel: Web vs. Mobile**
-
-The **Web** channel concentrates the vast majority of sales volume across both genders, far outpacing Mobile. This indicates that, despite the rise of mobile commerce, customers on this platform still prefer or complete their purchases primarily via desktop, which may signal both a demographic profile and an opportunity for improvement in the mobile experience.
-
-**Login Type and Value Generated**
-
-**Member** users are by far the ones generating the highest profit, well above Guest, First SignUp and New. This highlights that membership acts as a value accelerator: registered and loyal customers not only buy more, but do so with higher order values. Incentivising the conversion from Guest to Member emerges as a clear strategic lever.
-
-**Loyalty and Frequency**
-
-With a repeat rate of **26.07%** and an average of **1.32 orders per customer**, there is ample room for improvement in retention. One in four customers makes a repeat purchase, which is a reasonable starting point, but suggests that reactivation and loyalty strategies (email marketing, points programmes, personalised offers) could have a significant impact.
-
-**Monthly Evolution of Unique Customers**
-
-The customer base remains stable between January and April, with a notable acceleration from **May** onwards. The highest peaks are recorded in **November and December**, aligned with seasonal campaigns such as Black Friday and the Christmas season. This marked seasonality underscores the importance of planning capacity and acquisition efforts well in advance for the final quarter of the year.
-
-**Payment Method**
-
-**Credit card** clearly dominates transaction volume, followed by **money order** and, to a lesser extent, **e-wallet** and other methods. The pattern is similar across genders, with no relevant differences in payment preferences.
-
-**Top Customers**
-
-The highest-value individual customers accumulate sales of between **$8,940 and $9,940**, with profits ranging from **$4,432 to $5,469** per customer. The cumulative total of the top 10 amounts to **$92,500 in sales and $49,561 in profit**, reflecting solid profitability in the premium segment and opening the door to personalised service strategies or VIP programmes.
-
+- **Gender split** leans slightly toward **male customers (55.18%)** vs. female (44.85%),
+as shown in the donut chart.
+- **Device usage**: Web dominates sales for both genders, though **females drive
+significantly higher web sales**, while mobile usage remains marginal across both groups.
+- **Login type**: **Members generate the vast majority of sales and profit**, far outpacing
+guests and new sign-ups, reinforcing the importance of membership programs for revenue.
+- **Monthly trends**: Unique customers peak around **October–November**, likely driven by
+seasonal campaigns, with a fairly consistent gender mix throughout the year.
+- **Payment methods**: **Credit card and money order** are the dominant payment methods by
+sales volume, with e-wallet representing a smaller but notable segment.
+- **Top customers**: The highest-value customers reach up to **$9,940 in total sales and
+$5,469 in profit**, with the overall top-10 segment generating **$92,500 in sales and
+$49,561 in profit**.
 
 ### 🔗 Relevant SQL Queries
 
@@ -237,23 +254,60 @@ FROM (
 
 >💡 Full query source available in [customer_analysis.sql](./sql/customer_analysis.sql)
 
+### Conclusion
+
+The platform's revenue is heavily driven by **web-browsing, logged-in members paying by
+credit card**, with **female customers slightly outspending** despite being the smaller
+demographic group. Efforts to convert guests into members and increase mobile engagement
+could meaningfully boost both sales volume and repeat rates.
+
+---
 
 
 ## 📊 Dashboard 3/4 — Customer Segmentation
 
-This dashboard explores revenue distribution and purchasing behavior across four customer segments: **High Value**, **Medium Value**, **Low Value**, and **VIP**.
-
-
+The **Customer Segmentation** dashboard breaks down revenue and order behavior across four
+distinct customer tiers. VIP customers average **$6.02M in revenue**, while High Value
+customers follow at **$2.74M AOV**. Notably, **43.56% of revenue comes from repeat
+customers**, and VIP customers — despite being the smallest segment — account for
+**5.94% of total revenue**.
 
 ---
 ![Name](./images/customer_segmentation_dashboard.png)
 
 
 
+### 📌 Key KPIs — Customer Segmentation
+| Metric | Value |
+|---|---|
+| Avg. Revenue VIP | $6.02M |
+| Avg. Revenue High Value | $2.74M |
+| Revenue from Repeat Customers | 43.56% |
+| Revenue from VIP Customers | 5.94% |
 
-The top KPI cards surface the most critical metrics at a glance: VIP customers average $6.02M in revenue versus $2.74M for High Value, repeat customers account for 43.56% of total revenue, and VIP customers contribute 5.94% of overall sales. The Revenue Share donut chart reinforces the dominance of the High Value segment, which alone represents 66.4% of total revenue.
+---
 
 
+
+### 📊 Results and Insights
+
+
+- **Revenue Share by Segment**: The largest share of the customer base belongs to
+**High Value (66.40%)**, followed by Medium Value (21.44%), Low Value (6.22%), and VIP
+(5.94%) — meaning the platform's base skews toward higher-spending customers, with a small
+but impactful VIP elite.
+- **Average Revenue by Segment & Fidelity**: **VIP repeat customers generate the highest
+average revenue by far (~$6M+)**, with High Value repeat customers as a distant second.
+One-time customers across all segments contribute significantly less, highlighting the
+outsized impact of loyalty.
+- **Average Order Value by Customer Type**: **Repeat customers spend more than twice as
+much per order** compared to one-time customers, reinforcing that retention is a key
+revenue lever.
+- **Sales by Customer Segment (treemap)**: High Value and Medium Value segments dominate
+the sales area, with Low Value and VIP occupying smaller but meaningful shares.
+- **Total Orders by Segment and Type**: **High Value and Medium Value segments lead in
+total order volume**, with repeat customers driving the bulk of orders in those tiers.
+VIP customers place fewer but higher-value orders.
 
 
 ### 🔗 Relevant SQL Queries
@@ -326,20 +380,53 @@ GROUP BY customer_type;
 
 >💡 Full query source available in [customer_segmentation.sql](./sql/customer_segmentation.sql)
 
+
+### Conclusion
+
+The segmentation data reveals a clear strategic priority: **retaining and nurturing repeat
+customers — especially in the VIP and High Value tiers — is the single most impactful lever
+for revenue growth**. While Low Value customers represent a smaller portion of the base,
+converting one-time buyers into repeat customers and identifying potential VIP candidates
+within the Medium and High Value segments should be the core focus of any loyalty or
+CRM strategy.
+
+
 ## 📊 Dashboard 4/4 — Profit Analysis
 
-The third and final panel of the analysis focuses on **business profitability**.
+The **Profit Analysis** dashboard examines profitability across product categories,
+discount strategies, and individual products. With **42 unique products**, an
+**average discount of 30.38%**, and an **average order profit of $926**, the platform
+maintains healthy margins despite aggressive discounting.
 
 ![Name](./images/profit_analysis_dashboard.png)
 
 
-The active catalogue comprises **42 unique products**, with an average discount applied of **3.04%** and an average profit per order (**Profit AOV**) of **$926**, reflecting a high ticket value and healthy margins.
+### 📌 Key KPIs — Profit Analysis
+| Metric | Value |
+|---|---|
+| Unique Products | 42 |
+| Average Discount | 30.38% |
+| Average Order Profit | $926.00 |
+---
 
-The waterfall chart shows how total profit (~$38M) is built up by category: **Fashion** provides the most solid base (~$20M), followed by **Home & Furniture** and **Auto & Accessories**, while **Electronics**, despite being the category with the highest sales volume, adds the final increment. The quarterly analysis by category reveals **notable stability** throughout the year, with margins ranging between 40% and 45% across all segments and quarters, with no significant peaks or drops — a sign of a well-calibrated pricing and discount policy.
+### 📊 Results and Insights
 
-The discount vs. profit scatter plot reveals a slight tension: **Electronics and Fashion** operate with higher discounts (3–4%) but manage to maintain margins above 43%, suggesting that volume compensates for the discount. **Electronics** stands out particularly for its relatively large sales volume (larger bubble).
 
-Finally, the **Top 10 most profitable products** ranking is led by **Apple Laptop**, **T-Shirts** and **Tyre**, which combine high percentage profit with controlled discounts. Products such as **Titak Watch** and **Car Pillow & Neck Rest** carry proportionally higher discounts, which could be reviewed to optimise net margin without sacrificing demand.
+- **Profit by Product Category**: The **Electronic** category leads in total profit
+(~$35M+), followed by Auto & Accessories and Home & Furniture, with **Fashion being the
+lowest-performing category** in absolute profit terms (~$20M).
+- **Average Profit and Margin by Discount Range**: Interestingly, **Low Discount segments
+yield the highest profit margins (~43%)**, while margins gradually decline as discounts
+increase — confirming that heavy discounting erodes profitability.
+- **Average Profit by Category and Quarter**: Profit margins remain **remarkably stable
+across all four quarters** for every category, hovering between 38–43%, with no dramatic
+seasonal swings. Fashion shows slightly more variability.
+- **Discount vs. Profit Margin (bubble chart)**: **Electronic products carry the highest
+discounts (~40%) but also maintain the highest profit margins (~43%)**, while Home &
+Furniture and Fashion cluster at lower discount levels with moderate margins.
+- **Top 10 Most Profitable Products**: **Apple Laptop leads by a wide margin** in both
+average profit and discount level, followed by Tyre and T-Shirts. Products like Jeans and
+Iron show lower profit margins with comparatively high discounts.
 
 
 ### 🔗 Relevant SQL Queries
@@ -391,3 +478,12 @@ LIMIT 10;
 ```
 
 >💡 Full query source available in [profit_analysis.sql](./sql/profit_analysis.sql)
+
+### Conclusion
+
+The Profit Analysis reveals that **Electronics is the star category** — driving the highest
+absolute profit while sustaining strong margins even under heavy discounting. The data also
+signals a clear trade-off: **lower discounts consistently produce better margins**, making
+it critical to reassess discount strategies — particularly for Fashion and lower-performing
+products. Stabilizing quarterly performance suggests the business is not overly dependent
+on seasonal promotions, which is a healthy sign for long-term profitability.
