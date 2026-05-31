@@ -75,7 +75,7 @@ All dashboards support cross-filtering via the following global slicers:
 This dashboard corresponds to the main page (1/3) of the ecommerce analysis and provides a general overview of business performance. It summarises the key indicators for the current quarter, including total sales, profits, average profit margin and month-on-month growth (MoM), enabling a quick assessment of financial health. Monthly sales and profit trends are also presented to identify patterns and seasonality, alongside a breakdown by product category showing both the contribution to sales and the profitability of each segment. The top filters allow segmentation of the analysis by order priority, device type, payment method and quarter, enabling dynamic data exploration.
 
 
-![Name](./images/home_over.png)
+![Name](./images/home_dashboard.png)
 
 
 **💡 Key Insights**
@@ -152,7 +152,7 @@ ORDER BY quarter;
 This second dashboard of the **Ecommerce Sales Analysis** project provides an in-depth look at the profile and behaviour of the platform's customers. Complementing the general sales analysis from the first dashboard, the focus here shifts to who buys, how they buy and how frequently, enabling identification of key segments and loyalty patterns. The dashboard includes interactive filters by order priority, device type, payment method and quarter.
 
 
-![Name](./images/client_analysis.png)
+![Name](./images/customer_analysis_dashboard.png)
 
 ---
 
@@ -246,7 +246,7 @@ This dashboard explores revenue distribution and purchasing behavior across four
 
 
 ---
-![Name](./images/client_analysis.png)
+![Name](./images/customer_segmentation_dashboard.png)
 
 
 
@@ -330,7 +330,7 @@ GROUP BY customer_type;
 
 The third and final panel of the analysis focuses on **business profitability**.
 
-![Name](./images/profit_analysis.png)
+![Name](./images/profit_analysis_dashboard.png)
 
 
 The active catalogue comprises **42 unique products**, with an average discount applied of **3.04%** and an average profit per order (**Profit AOV**) of **$926**, reflecting a high ticket value and healthy margins.
