@@ -413,7 +413,7 @@ maintains healthy margins despite aggressive discounting.
 
 
 - **Profit by Product Category**: The **Electronic** category leads in total profit
-(~$35M+), followed by Auto & Accessories and Home & Furniture, with **Fashion being the
+($35M+), followed by Auto & Accessories and Home & Furniture, with **Fashion being the
 lowest-performing category** in absolute profit terms (~$20M).
 - **Average Profit and Margin by Discount Range**: Interestingly, **Low Discount segments
 yield the highest profit margins (~43%)**, while margins gradually decline as discounts
