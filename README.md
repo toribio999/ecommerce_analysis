@@ -61,15 +61,6 @@ ecommerce-sales-analysis/
 > **Single table, no joins required.** All analysis is performed directly on `ecomm_sales`.
 
 
-## 🎛️ Available Filters
-
-All dashboards support cross-filtering via the following global slicers:
-
-`Order Priority` · `Device Type` · `Payment Method` · `Quarter` · `Product Category` · `MonthName`
-
----
-
-
 ## 🏠 Dashboard 1/4 — Home Overview
 
 The **Home** dashboard serves as the executive summary of the ecommerce operation,
